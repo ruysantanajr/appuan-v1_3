@@ -144,32 +144,20 @@ export default function Sidebar({ usuario }: { usuario: User }) {
 function LogoOnDark() {
   return (
     <svg
-      viewBox="0 0 200 48"
+      viewBox="0 0 168 44"
       height="28"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="appuan"
       role="img"
     >
       <text
-        y="38"
+        y="36"
         fontFamily="Inter, system-ui, sans-serif"
         fontWeight="700"
-        fontSize="42"
+        fontSize="40"
         letterSpacing="-0.03em"
-        fill="#FFFFFF"
       >
-        app
-      </text>
-      <text
-        x="83"
-        y="38"
-        fontFamily="Inter, system-ui, sans-serif"
-        fontWeight="700"
-        fontSize="42"
-        letterSpacing="-0.03em"
-        fill="#A568E4"
-      >
-        uan
+        <tspan fill="#FFFFFF">app</tspan><tspan fill="#A568E4">uan</tspan>
       </text>
     </svg>
   );
