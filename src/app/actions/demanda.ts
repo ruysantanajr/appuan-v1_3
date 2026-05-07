@@ -68,6 +68,36 @@ export async function criarDemanda(formData: FormData) {
   return { ok: true, id: data["id"] as string };
 }
 
+export async function atualizarDemanda(
+  id: string,
+  dados: { descricao: string; area_id: string; origem: string },
+  dadosAntes: Record<string, unknown>
+) {
+  const supabase = createClient();
+  const usuario = await getUsuarioAtual();
+  const criado_por = usuario?.id ?? SENTINEL;
+
+  const { data, error } = await updateRow(
+    supabase, "demanda",
+    { ...dados, atualizado_por: criado_por },
+    id
+  );
+  if (error) return { erro: error.message };
+
+  await insertAuditoria(supabase, {
+    tabela:       "demanda",
+    registro_id:  id,
+    operacao:     "update",
+    dados_antes:  dadosAntes as Json,
+    dados_depois: data as Json,
+    criado_por,
+  });
+
+  revalidatePath("/demandas");
+  revalidatePath(`/demandas/${id}`);
+  return { ok: true };
+}
+
 export async function atualizarStatusDemanda(
   id: string,
   novoStatus: string,

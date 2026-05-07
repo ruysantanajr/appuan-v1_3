@@ -4,8 +4,10 @@ import DemandaDetalhe from "@/components/demanda-detalhe";
 import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
 
-type DemandaComArea = Tables<"demanda"> & {
-  area: { id: string; nome: string; sigla: string; tipo: string } | null;
+type DemandaComRelacoes = Tables<"demanda"> & {
+  area:   { id: string; nome: string; sigla: string; tipo: string } | null;
+  criador: { nome: string } | null;
+  editor:  { nome: string } | null;
 };
 type FluxoComEtapas = Tables<"fluxo"> & { etapas: Tables<"etapa">[] };
 
@@ -17,21 +19,40 @@ export default async function DemandaDetalhePage({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const supabase = createClient() as any;
 
-  const [demandaRes, fluxosRes, trilhaRes] = await Promise.all([
-    supabase.from("demanda").select("*, area:area_id(id, nome, sigla, tipo)").eq("id", params.id).single(),
-    supabase.from("fluxo").select("*, etapas:etapa(id, nome, ordem, status_gatilho)").eq("status", "ativo"),
-    supabase.from("trilha_auditoria").select("*").eq("tabela", "demanda").eq("registro_id", params.id).order("criado_em", { ascending: false }),
+  const [demandaRes, fluxosRes, trilhaRes, areasRes] = await Promise.all([
+    supabase
+      .from("demanda")
+      .select("*, area:area_id(id, nome, sigla, tipo), criador:criado_por(nome), editor:atualizado_por(nome)")
+      .eq("id", params.id)
+      .single(),
+    supabase
+      .from("fluxo")
+      .select("*, etapas:etapa(id, nome, ordem, status_gatilho)")
+      .eq("status", "ativo"),
+    supabase
+      .from("trilha_auditoria")
+      .select("*")
+      .eq("tabela", "demanda")
+      .eq("registro_id", params.id)
+      .order("criado_em", { ascending: false }),
+    supabase
+      .from("area")
+      .select("id, nome, sigla, tipo")
+      .eq("status", "ativa")
+      .order("nome"),
   ]) as [
-    { data: DemandaComArea | null; error: unknown },
-    { data: FluxoComEtapas[] | null; error: unknown },
+    { data: DemandaComRelacoes | null; error: unknown },
+    { data: FluxoComEtapas[]   | null; error: unknown },
     { data: Tables<"trilha_auditoria">[] | null; error: unknown },
+    { data: { id: string; nome: string; sigla: string; tipo: string }[] | null; error: unknown },
   ];
 
   if (!demandaRes.data) notFound();
 
   const demanda = demandaRes.data;
-  const fluxos  = fluxosRes.data ?? [];
-  const trilha  = trilhaRes.data ?? [];
+  const fluxos  = fluxosRes.data  ?? [];
+  const trilha  = trilhaRes.data  ?? [];
+  const areas   = areasRes.data   ?? [];
 
   return (
     <div>
@@ -52,6 +73,7 @@ export default async function DemandaDetalhePage({
         demanda={demanda}
         fluxos={fluxos}
         trilha={trilha}
+        areas={areas}
       />
     </div>
   );
