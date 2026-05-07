@@ -138,10 +138,10 @@ export default function DemandasTable({
                 Origem
               </th>
               <th className="w-32 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
-                Criado por
+                Status
               </th>
               <th className="w-32 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
-                Status
+                Criado por
               </th>
             </tr>
           </thead>
@@ -180,9 +180,6 @@ export default function DemandasTable({
                     <td className="px-4 py-2.5 text-xs text-fg-2">
                       {LABEL_ORIGEM[d.origem] ?? d.origem}
                     </td>
-                    <td className="px-4 py-2.5 text-xs text-fg-2">
-                      {d.criador?.nome ?? "—"}
-                    </td>
                     <td className="px-4 py-2.5">
                       <span
                         className="rounded-full px-2 py-0.5 text-[10px] font-medium"
@@ -190,6 +187,9 @@ export default function DemandasTable({
                       >
                         {d.status}
                       </span>
+                    </td>
+                    <td className="px-4 py-2.5 text-xs text-fg-2">
+                      {d.criador?.nome ?? "—"}
                     </td>
                   </tr>
                 );
