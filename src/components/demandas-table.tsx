@@ -7,6 +7,7 @@ import { labelArea } from "@/lib/area-utils";
 
 type DemandaComArea = Tables<"demanda"> & {
   area: { nome: string; sigla: string; tipo: string } | null;
+  criador: { nome: string } | null;
 };
 
 const LABEL_ORIGEM: Record<string, string> = {
@@ -137,6 +138,9 @@ export default function DemandasTable({
                 Origem
               </th>
               <th className="w-32 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
+                Criado por
+              </th>
+              <th className="w-32 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
                 Status
               </th>
             </tr>
@@ -144,7 +148,7 @@ export default function DemandasTable({
           <tbody>
             {filtradas.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-sm text-fg-3">
+                <td colSpan={6} className="px-4 py-8 text-center text-sm text-fg-3">
                   Nenhuma demanda encontrada.
                 </td>
               </tr>
@@ -175,6 +179,9 @@ export default function DemandasTable({
                     </td>
                     <td className="px-4 py-2.5 text-xs text-fg-2">
                       {LABEL_ORIGEM[d.origem] ?? d.origem}
+                    </td>
+                    <td className="px-4 py-2.5 text-xs text-fg-2">
+                      {d.criador?.nome ?? "—"}
                     </td>
                     <td className="px-4 py-2.5">
                       <span
