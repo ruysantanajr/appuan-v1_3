@@ -1,10 +1,15 @@
-export default function EquipamentosPage() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="text-center">
-        <p className="text-sm font-semibold text-fg-1">Equipamentos</p>
-        <p className="mt-1 text-xs text-fg-3">Em breve</p>
-      </div>
-    </div>
-  );
+import { createClient } from "@/lib/supabase/server";
+import EquipamentosList from "@/components/equipamentos-list";
+import type { Tables } from "@/lib/supabase/types";
+
+export default async function EquipamentosPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any;
+
+  const { data } = await supabase
+    .from("equipamento")
+    .select("*")
+    .order("tipo") as { data: Tables<"equipamento">[] | null };
+
+  return <EquipamentosList equipamentos={data ?? []} />;
 }

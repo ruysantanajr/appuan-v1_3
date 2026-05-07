@@ -1,10 +1,19 @@
-export default function OrganizacoesPage() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="text-center">
-        <p className="text-sm font-semibold text-fg-1">Organizações</p>
-        <p className="mt-1 text-xs text-fg-3">Em breve</p>
-      </div>
-    </div>
-  );
+import { createClient } from "@/lib/supabase/server";
+import OrganizacoesList from "@/components/organizacoes-list";
+import type { Tables } from "@/lib/supabase/types";
+
+type OrgRow = Tables<"organizacao">;
+
+export default async function OrganizacoesPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any;
+
+  const { data } = await supabase
+    .from("organizacao")
+    .select("*")
+    .order("nome") as { data: OrgRow[] | null };
+
+  const organizacoes = (data ?? []) as OrgRow[];
+
+  return <OrganizacoesList organizacoes={organizacoes} />;
 }

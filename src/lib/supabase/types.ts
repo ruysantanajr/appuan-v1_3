@@ -197,6 +197,59 @@ export type Database = {
           },
         ]
       }
+      contato: {
+        Row: {
+          atualizado_em: string
+          atualizado_por: string
+          cargo: string | null
+          criado_em: string
+          criado_por: string
+          email: string | null
+          id: string
+          nome: string
+          observacoes: string | null
+          organizacao_id: string | null
+          status: string
+          telefone: string | null
+        }
+        Insert: {
+          atualizado_em?: string
+          atualizado_por?: string
+          cargo?: string | null
+          criado_em?: string
+          criado_por?: string
+          email?: string | null
+          id?: string
+          nome: string
+          observacoes?: string | null
+          organizacao_id?: string | null
+          status?: string
+          telefone?: string | null
+        }
+        Update: {
+          atualizado_em?: string
+          atualizado_por?: string
+          cargo?: string | null
+          criado_em?: string
+          criado_por?: string
+          email?: string | null
+          id?: string
+          nome?: string
+          observacoes?: string | null
+          organizacao_id?: string | null
+          status?: string
+          telefone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contato_organizacao_id_fkey"
+            columns: ["organizacao_id"]
+            isOneToOne: false
+            referencedRelation: "organizacao"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demanda: {
         Row: {
           area_id: string
@@ -373,6 +426,93 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      equipamento: {
+        Row: {
+          atualizado_em: string
+          atualizado_por: string
+          criado_em: string
+          criado_por: string
+          descricao: string | null
+          id: string
+          marca: string | null
+          numero_serie: string | null
+          status: string
+          tag: string
+          tipo: string
+        }
+        Insert: {
+          atualizado_em?: string
+          atualizado_por?: string
+          criado_em?: string
+          criado_por?: string
+          descricao?: string | null
+          id?: string
+          marca?: string | null
+          numero_serie?: string | null
+          status?: string
+          tag: string
+          tipo: string
+        }
+        Update: {
+          atualizado_em?: string
+          atualizado_por?: string
+          criado_em?: string
+          criado_por?: string
+          descricao?: string | null
+          id?: string
+          marca?: string | null
+          numero_serie?: string | null
+          status?: string
+          tag?: string
+          tipo?: string
+        }
+        Relationships: []
+      }
+      organizacao: {
+        Row: {
+          atualizado_em: string
+          atualizado_por: string
+          criado_em: string
+          criado_por: string
+          email: string | null
+          id: string
+          nome: string
+          observacoes: string | null
+          site: string | null
+          status: string
+          telefone: string | null
+          tipo: string
+        }
+        Insert: {
+          atualizado_em?: string
+          atualizado_por?: string
+          criado_em?: string
+          criado_por?: string
+          email?: string | null
+          id?: string
+          nome: string
+          observacoes?: string | null
+          site?: string | null
+          status?: string
+          telefone?: string | null
+          tipo: string
+        }
+        Update: {
+          atualizado_em?: string
+          atualizado_por?: string
+          criado_em?: string
+          criado_por?: string
+          email?: string | null
+          id?: string
+          nome?: string
+          observacoes?: string | null
+          site?: string | null
+          status?: string
+          telefone?: string | null
+          tipo?: string
+        }
+        Relationships: []
       }
       projeto: {
         Row: {
