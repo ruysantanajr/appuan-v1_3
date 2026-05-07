@@ -20,6 +20,7 @@ const LABEL_ORIGEM: Record<string, string> = {
 };
 
 const STATUS_OPTIONS = [
+  { value: "ativas",       label: "Ativas" },
   { value: "",             label: "Todos os status" },
   { value: "nova",         label: "Nova" },
   { value: "em tratamento",label: "Em tratamento" },
@@ -31,7 +32,7 @@ const STATUS_STYLE: Record<string, { bg: string; color: string }> = {
   nova:             { bg: "#DBEAFE", color: "#1D4ED8" },
   "em tratamento":  { bg: "#FEF3C7", color: "#B45309" },
   convertida:       { bg: "#DCFCE7", color: "#15803D" },
-  descartada:       { bg: "#F3F4F6", color: "#6B7280" },
+  descartada:       { bg: "#FEE2E2", color: "#B91C1C" },
 };
 
 function fmt(iso: string) {
@@ -48,7 +49,7 @@ export default function DemandasTable({
   demandas: DemandaComArea[];
   areas: { id: string; nome: string; sigla: string; tipo: string }[];
 }) {
-  const [filtroStatus, setFiltroStatus] = useState("");
+  const [filtroStatus, setFiltroStatus] = useState("ativas");
   const [filtroArea, setFiltroArea]     = useState("");
   const [filtroOrigem, setFiltroOrigem] = useState("");
   const [busca, setBusca]               = useState("");
@@ -57,7 +58,11 @@ export default function DemandasTable({
 
   const filtradas = useMemo(() => {
     return demandas.filter(d => {
-      if (filtroStatus && d.status !== filtroStatus) return false;
+      if (filtroStatus === "ativas") {
+        if (d.status !== "nova" && d.status !== "em tratamento") return false;
+      } else if (filtroStatus) {
+        if (d.status !== filtroStatus) return false;
+      }
       if (filtroArea   && d.area_id !== filtroArea)  return false;
       if (filtroOrigem && d.origem  !== filtroOrigem) return false;
       if (busca && !d.descricao.toLowerCase().includes(busca.toLowerCase())) return false;
