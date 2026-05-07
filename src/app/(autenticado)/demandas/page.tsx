@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
 import DemandasTable from "@/components/demandas-table";
-import Link from "next/link";
 
 export default async function DemandasPage() {
   const supabase = createClient();
@@ -15,17 +14,6 @@ export default async function DemandasPage() {
 
   return (
     <div className="px-6 py-8">
-      <div className="mb-6 flex items-center justify-between">
-        <div />
-        <Link
-          href="/entradas"
-          className="rounded-md px-4 py-2 text-sm font-medium text-white transition-colors"
-          style={{ background: "#3a1165" }}
-          onMouseEnter={undefined}
-        >
-          + Nova demanda
-        </Link>
-      </div>
       <DemandasTable
         demandas={(demandas ?? []) as Parameters<typeof DemandasTable>[0]["demandas"]}
         areas={areas ?? []}
