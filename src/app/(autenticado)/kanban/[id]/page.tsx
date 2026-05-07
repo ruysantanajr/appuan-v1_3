@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
 
 type RequisicaoComJoins = Tables<"requisicao"> & {
-  area: { id: string; sigla: string; nome: string } | null;
+  area: { id: string; sigla: string; nome: string; tipo: string } | null;
   fluxo: { id: string; nome: string } | null;
   etapa_atual: { id: string; nome: string; ordem: number } | null;
   responsavel: { id: string; nome: string } | null;
@@ -23,7 +23,7 @@ export default async function KanbanDetalhePage({
     supabase
       .from("requisicao")
       .select(
-        "*, area:area_id(id, sigla, nome), fluxo:fluxo_id(id, nome), etapa_atual:etapa_id(id, nome, ordem), responsavel:responsavel_id(id, nome)"
+        "*, area:area_id(id, sigla, nome, tipo), fluxo:fluxo_id(id, nome), etapa_atual:etapa_id(id, nome, ordem), responsavel:responsavel_id(id, nome)"
       )
       .eq("id", params.id)
       .single(),

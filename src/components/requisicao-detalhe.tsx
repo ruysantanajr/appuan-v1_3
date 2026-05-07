@@ -6,6 +6,7 @@ import {
   atualizarEtapaRequisicao,
   atualizarCamposRequisicao,
 } from "@/app/actions/requisicao";
+import { labelArea } from "@/lib/area-utils";
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 const BG_APP = "#F5F0FA";
@@ -31,7 +32,7 @@ type Requisicao = {
   organizacao: string | null;
   contato: string | null;
   equipamento: string | null;
-  area: { sigla: string; nome: string } | null;
+  area: { sigla: string; nome: string; tipo: string } | null;
   fluxo: { id: string; nome: string } | null;
   etapa_atual: { id: string; nome: string; ordem: number } | null;
   responsavel: { id: string; nome: string } | null;
@@ -495,7 +496,7 @@ export function RequisicaoDetalhe({ requisicao, etapas, usuarios, trilha }: Prop
                 fontWeight: 600,
               }}
             >
-              {requisicao.area.sigla}
+              {labelArea(requisicao.area)}
             </span>
           )}
         </div>
@@ -538,7 +539,7 @@ export function RequisicaoDetalhe({ requisicao, etapas, usuarios, trilha }: Prop
           <div>
             <span style={labelStyle}>Área</span>
             <p style={{ fontSize: 13, color: FG_1, margin: 0 }}>
-              {requisicao.area ? `${requisicao.area.sigla} — ${requisicao.area.nome}` : "—"}
+              {requisicao.area ? `${labelArea(requisicao.area)} — ${requisicao.area.nome}` : "—"}
             </p>
           </div>
           <div>

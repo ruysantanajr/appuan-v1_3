@@ -5,7 +5,7 @@ import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
 
 type DemandaComArea = Tables<"demanda"> & {
-  area: { id: string; nome: string; sigla: string } | null;
+  area: { id: string; nome: string; sigla: string; tipo: string } | null;
 };
 type FluxoComEtapas = Tables<"fluxo"> & { etapas: Tables<"etapa">[] };
 
@@ -18,7 +18,7 @@ export default async function DemandaDetalhePage({
   const supabase = createClient() as any;
 
   const [demandaRes, fluxosRes, trilhaRes] = await Promise.all([
-    supabase.from("demanda").select("*, area:area_id(id, nome, sigla)").eq("id", params.id).single(),
+    supabase.from("demanda").select("*, area:area_id(id, nome, sigla, tipo)").eq("id", params.id).single(),
     supabase.from("fluxo").select("*, etapas:etapa(id, nome, ordem, status_gatilho)").eq("status", "ativo"),
     supabase.from("trilha_auditoria").select("*").eq("tabela", "demanda").eq("registro_id", params.id).order("criado_em", { ascending: false }),
   ]) as [

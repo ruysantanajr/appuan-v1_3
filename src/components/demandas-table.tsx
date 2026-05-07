@@ -3,9 +3,10 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
+import { labelArea } from "@/lib/area-utils";
 
 type DemandaComArea = Tables<"demanda"> & {
-  area: { nome: string; sigla: string } | null;
+  area: { nome: string; sigla: string; tipo: string } | null;
 };
 
 const LABEL_ORIGEM: Record<string, string> = {
@@ -43,7 +44,7 @@ export default function DemandasTable({
   areas,
 }: {
   demandas: DemandaComArea[];
-  areas: { id: string; nome: string; sigla: string }[];
+  areas: { id: string; nome: string; sigla: string; tipo: string }[];
 }) {
   const [filtroStatus, setFiltroStatus] = useState("");
   const [filtroArea, setFiltroArea]     = useState("");
@@ -95,7 +96,7 @@ export default function DemandasTable({
         >
           <option value="">Todas as áreas</option>
           {areas.map(a => (
-            <option key={a.id} value={a.id}>{a.sigla?.trim()} — {a.nome}</option>
+            <option key={a.id} value={a.id}>{labelArea(a)} — {a.nome}</option>
           ))}
         </select>
         <select
@@ -169,7 +170,7 @@ export default function DemandasTable({
                       </Link>
                     </td>
                     <td className="px-4 py-2.5 text-xs text-fg-2">
-                      {d.area?.sigla?.trim() ?? "—"}
+                      {labelArea(d.area)}
                     </td>
                     <td className="px-4 py-2.5 text-xs text-fg-2">
                       {LABEL_ORIGEM[d.origem] ?? d.origem}

@@ -6,7 +6,7 @@ export default async function KanbanPage() {
 
   const { data: requisicoes } = await supabase
     .from("requisicao")
-    .select("*, area:area_id(sigla, nome), responsavel:responsavel_id(nome)")
+    .select("*, area:area_id(sigla, nome, tipo), responsavel:responsavel_id(nome)")
     .not("status", "in", '("concluida","cancelada")')
     .order("criado_em", { ascending: false });
 
@@ -14,7 +14,7 @@ export default async function KanbanPage() {
   const trinta = new Date(Date.now() - 30 * 86400000).toISOString();
   const { data: fechadas } = await supabase
     .from("requisicao")
-    .select("*, area:area_id(sigla, nome), responsavel:responsavel_id(nome)")
+    .select("*, area:area_id(sigla, nome, tipo), responsavel:responsavel_id(nome)")
     .in("status", ["concluida", "cancelada"])
     .gte("atualizado_em", trinta)
     .order("atualizado_em", { ascending: false });

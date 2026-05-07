@@ -7,9 +7,10 @@ import {
   converterDemandaEmRequisicao,
 } from "@/app/actions/demanda";
 import type { Tables } from "@/lib/supabase/types";
+import { labelArea } from "@/lib/area-utils";
 
 type Demanda = Tables<"demanda"> & {
-  area: { id: string; nome: string; sigla: string } | null;
+  area: { id: string; nome: string; sigla: string; tipo: string } | null;
 };
 
 type Fluxo = Tables<"fluxo"> & { etapas: Tables<"etapa">[] };
@@ -169,7 +170,7 @@ export default function DemandaDetalhe({
             <div>
               <span className="text-fg-3">Área</span>
               <p className="font-medium text-fg-1">
-                {demanda.area?.sigla?.trim()} — {demanda.area?.nome ?? "—"}
+                {labelArea(demanda.area)} — {demanda.area?.nome ?? "—"}
               </p>
             </div>
             <div>

@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
+import { labelArea } from "@/lib/area-utils";
 
 type Requisicao = Tables<"requisicao"> & {
-  area: { sigla: string; nome: string } | null;
+  area: { sigla: string; nome: string; tipo: string } | null;
   responsavel: { nome: string } | null;
 };
 
@@ -49,7 +50,7 @@ function CardRequisicao({ req }: { req: Requisicao }) {
       <div className="mb-1.5 flex items-center justify-between gap-1">
         <span className="font-mono text-[10px] text-fg-3">{req.numero}</span>
         {req.area && (
-          <span className="text-[10px] text-fg-3">{req.area.sigla?.trim()}</span>
+          <span className="text-[10px] text-fg-3">{labelArea(req.area)}</span>
         )}
       </div>
       <p className="mb-2 font-medium text-fg-1 leading-snug line-clamp-2">

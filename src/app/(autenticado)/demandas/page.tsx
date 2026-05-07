@@ -8,9 +8,9 @@ export default async function DemandasPage() {
   const [{ data: demandas }, { data: areas }] = await Promise.all([
     supabase
       .from("demanda")
-      .select("*, area:area_id(nome, sigla)")
+      .select("*, area:area_id(nome, sigla, tipo)")
       .order("criado_em", { ascending: false }),
-    supabase.from("area").select("id, nome, sigla").eq("status", "ativa").order("nome"),
+    supabase.from("area").select("id, nome, sigla, tipo").eq("status", "ativa").order("nome"),
   ]);
 
   return (

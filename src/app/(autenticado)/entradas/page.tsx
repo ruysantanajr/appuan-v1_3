@@ -2,9 +2,10 @@ import { createClient } from "@/lib/supabase/server";
 import EntradaForm from "@/components/entrada-form";
 import Link from "next/link";
 import type { Tables } from "@/lib/supabase/types";
+import { labelArea } from "@/lib/area-utils";
 
 type DemandaRecente = Tables<"demanda"> & {
-  area: { nome: string; sigla: string } | null;
+  area: { nome: string; sigla: string; tipo: string } | null;
 };
 
 type Area = Tables<"area">;
@@ -29,10 +30,10 @@ export default async function EntradaPage() {
   const supabase = createClient();
 
   const [areasRes, recentesRes] = await Promise.all([
-    supabase.from("area").select("id, nome, sigla").eq("status", "ativa").order("nome"),
+    supabase.from("area").select("id, nome, sigla, tipo").eq("status", "ativa").order("nome"),
     supabase
       .from("demanda")
-      .select("id, descricao, origem, status, criado_em, area:area_id(nome, sigla)")
+      .select("id, descricao, origem, status, criado_em, area:area_id(nome, sigla, tipo)")
       .order("criado_em", { ascending: false })
       .limit(10),
   ]);
@@ -88,7 +89,7 @@ export default async function EntradaPage() {
                       {d.descricao}
                     </span>
                     <span className="flex-shrink-0 text-[10px] text-fg-3">
-                      {d.area?.sigla?.trim()} · {LABEL_ORIGEM[d.origem] ?? d.origem}
+                      {labelArea(d.area)} · {LABEL_ORIGEM[d.origem] ?? d.origem}
                     </span>
                   </Link>
                 </li>

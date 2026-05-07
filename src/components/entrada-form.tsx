@@ -3,6 +3,7 @@
 import { useRef, useState, useTransition } from "react";
 import { criarDemanda } from "@/app/actions/demanda";
 import type { Tables } from "@/lib/supabase/types";
+import { labelArea } from "@/lib/area-utils";
 
 type Area = Tables<"area">;
 
@@ -81,7 +82,7 @@ export default function EntradaForm({ areas }: { areas: Area[] }) {
             <option value="" disabled>Selecione...</option>
             {areas.map(a => (
               <option key={a.id} value={a.id}>
-                {a.sigla?.trim()} — {a.nome}
+                {labelArea(a)} — {a.nome}
               </option>
             ))}
           </select>
