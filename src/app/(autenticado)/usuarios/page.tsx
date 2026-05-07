@@ -4,11 +4,12 @@ import type { Tables } from "@/lib/supabase/types";
 type UsuarioRow = Pick<Tables<"usuario">, "id" | "nome" | "email" | "tipo" | "status" | "criado_em">;
 
 export default async function UsuariosPage() {
-  const supabase = createClient();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const supabase = createClient() as any;
   const { data } = await supabase
     .from("usuario")
     .select("id, nome, email, tipo, status, criado_em")
-    .order("nome");
+    .order("nome") as { data: UsuarioRow[] | null };
 
   const usuarios = (data ?? []) as UsuarioRow[];
 

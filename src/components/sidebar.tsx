@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import {
   Inbox,
+  List,
   Kanban,
   Building2,
   Users,
@@ -16,6 +17,7 @@ import {
 
 const itens = [
   { href: "/entradas",    label: "Caixa de Entrada", icon: Inbox },
+  { href: "/demandas",    label: "Demandas",          icon: List },
   { href: "/kanban",      label: "Kanban",            icon: Kanban },
   { href: "/organizacoes",label: "Organizações",      icon: Building2 },
   { href: "/contatos",    label: "Contatos",          icon: Users },
