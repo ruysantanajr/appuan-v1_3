@@ -137,3 +137,8 @@ Ordem de construção:
 9. Integrações — Bling, Autentique
 10. Micro apps — qualificação, reembolso
 11. IA contextual — agentes por tela e etapa
+
+## Fluxo de trabalho obrigatório
+
+- Sempre iniciar a sessão de trabalho com `git pull` para garantir base atualizada
+- Sempre finalizar com commit descritivo e `git push` ao concluir qualquer mudança
