@@ -52,6 +52,8 @@ export default function DemandasTable({
   const [filtroArea, setFiltroArea]     = useState("");
   const [filtroOrigem, setFiltroOrigem] = useState("");
   const [busca, setBusca]               = useState("");
+  const [dataInicio, setDataInicio]     = useState("");
+  const [dataFim, setDataFim]           = useState("");
 
   const filtradas = useMemo(() => {
     return demandas.filter(d => {
@@ -59,9 +61,17 @@ export default function DemandasTable({
       if (filtroArea   && d.area_id !== filtroArea)  return false;
       if (filtroOrigem && d.origem  !== filtroOrigem) return false;
       if (busca && !d.descricao.toLowerCase().includes(busca.toLowerCase())) return false;
+      if (dataInicio) {
+        const inicio = new Date(dataInicio + "T00:00:00");
+        if (new Date(d.criado_em) < inicio) return false;
+      }
+      if (dataFim) {
+        const fim = new Date(dataFim + "T23:59:59");
+        if (new Date(d.criado_em) > fim) return false;
+      }
       return true;
     });
-  }, [demandas, filtroStatus, filtroArea, filtroOrigem, busca]);
+  }, [demandas, filtroStatus, filtroArea, filtroOrigem, busca, dataInicio, dataFim]);
 
   const inputStyle = {
     borderColor: "#E9DDF5",
@@ -70,7 +80,7 @@ export default function DemandasTable({
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Filtros */}
+      {/* Filtros — linha 1 */}
       <div className="flex flex-wrap gap-2">
         <input
           type="text"
@@ -112,7 +122,37 @@ export default function DemandasTable({
             <option key={v} value={v}>{l}</option>
           ))}
         </select>
-        <span className="ml-auto self-center text-xs text-fg-3">
+      </div>
+
+      {/* Filtros — linha 2: período */}
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs text-fg-3">Período:</span>
+        <input
+          type="date"
+          value={dataInicio}
+          onChange={e => setDataInicio(e.target.value)}
+          className="rounded-md border px-3 py-1.5 text-sm text-fg-1 focus:outline-none focus:ring-2 focus:ring-purple-hover/40"
+          style={inputStyle}
+        />
+        <span className="text-xs text-fg-3">até</span>
+        <input
+          type="date"
+          value={dataFim}
+          onChange={e => setDataFim(e.target.value)}
+          min={dataInicio || undefined}
+          className="rounded-md border px-3 py-1.5 text-sm text-fg-1 focus:outline-none focus:ring-2 focus:ring-purple-hover/40"
+          style={inputStyle}
+        />
+        {(dataInicio || dataFim) && (
+          <button
+            onClick={() => { setDataInicio(""); setDataFim(""); }}
+            className="rounded-md px-2 py-1.5 text-xs text-fg-3 hover:text-fg-1"
+            style={{ borderColor: "#E9DDF5" }}
+          >
+            ✕ Limpar
+          </button>
+        )}
+        <span className="ml-auto text-xs text-fg-3">
           {filtradas.length} resultado{filtradas.length !== 1 ? "s" : ""}
         </span>
       </div>
