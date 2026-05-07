@@ -1,27 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 60 33% 97%;
-    --foreground: 270 100% 7%;
-    --card: 0 0% 100%;
-    --card-foreground: 270 100% 7%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 270 100% 7%;
-    --primary: 270 75% 47%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 270 60% 95%;
-    --secondary-foreground: 270 75% 47%;
-    --muted: 270 20% 95%;
-    --muted-foreground: 270 10% 45%;
-    --destructive: 0 84% 60%;
+    /* Design System — brand purples */
+    --purple-nav:     #170024;
+    --purple-accent:  #3a1165;
+    --purple-hover:   #7C3AED;
+    --purple-logo:    #A568E4;
+    --purple-300:     #d8b4fe;
+    --purple-50:      #faf5ff;
+    --purple-shell:   #F5F0FA;
+    --purple-border:  #E9DDF5;
+
+    /* Design System — foreground */
+    --fg-on-dark-1: #FFFFFF;
+    --fg-on-dark-2: rgba(255, 255, 255, 0.72);
+    --fg-on-dark-3: rgba(255, 255, 255, 0.48);
+    --fg-1:         #1F1230;
+    --fg-2:         #4B3A66;
+    --fg-3:         #7A6B8E;
+    --fg-disabled:  #B8AEC4;
+
+    /* Design System — backgrounds */
+    --bg-app:         #F5F0FA;
+    --bg-surface:     #FFFFFF;
+    --bg-surface-alt: #faf5ff;
+    --bg-hover:       #F5F0FA;
+    --bg-pressed:     #E9DDF5;
+
+    /* Design System — motion */
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --duration-1: 120ms;
+    --duration-2: 180ms;
+    --duration-3: 240ms;
+
+    /* Design System — focus */
+    --focus-ring:         0 0 0 2px #FFFFFF, 0 0 0 4px #7C3AED;
+    --focus-ring-on-dark: 0 0 0 2px #170024, 0 0 0 4px #7C3AED;
+
+    /* shadcn/ui tokens — mapeados para o design system */
+    --background:          270 33% 97%;   /* #F5F0FA */
+    --foreground:          270 73% 13%;   /* #1F1230 */
+    --card:                0 0% 100%;
+    --card-foreground:     270 73% 13%;
+    --popover:             0 0% 100%;
+    --popover-foreground:  270 73% 13%;
+    --primary:             270 59% 30%;   /* #3a1165 */
+    --primary-foreground:  0 0% 100%;
+    --secondary:           270 40% 95%;
+    --secondary-foreground:270 59% 30%;
+    --muted:               270 30% 95%;
+    --muted-foreground:    270 14% 55%;   /* #7A6B8E */
+    --destructive:         0 72% 41%;     /* #B91C1C */
     --destructive-foreground: 0 0% 100%;
-    --border: 270 20% 90%;
-    --input: 270 20% 90%;
-    --ring: 270 75% 47%;
-    --radius: 0.5rem;
+    --border:              270 45% 90%;   /* #E9DDF5 */
+    --input:               270 45% 90%;
+    --ring:                270 62% 55%;   /* #7C3AED */
+    --radius:              0.5rem;
   }
 }
 
@@ -29,7 +68,28 @@
   * {
     @apply border-border;
   }
+
+  html,
   body {
-    @apply bg-fundo text-foreground;
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-bg-app text-fg-1;
+  }
+
+  ::selection {
+    background: #d8b4fe;
+    color: #1F1230;
+  }
+
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+    border-radius: 6px;
   }
 }

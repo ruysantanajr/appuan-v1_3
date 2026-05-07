@@ -13,7 +13,7 @@ interface única, sem que o usuário precise migrar de ferramenta.
 ## Stack
 
 - Frontend: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
-- Banco: Supabase (PostgreSQL) — projeto oarbhewlhnobcfexxhyb
+- Banco: Supabase (PostgreSQL) — projeto kytfvznsdjgolquwfyun
 - Deploy: Cloudflare Pages
 - Domínio: appuan.app
 - Repositório: github.com/ruysantanajr/appuan-v1_3
