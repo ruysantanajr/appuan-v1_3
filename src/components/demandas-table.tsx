@@ -231,7 +231,7 @@ export default function DemandasTable({
         </div>
 
         {/* ── Filtros — linha 1 ─────────────────────────── */}
-        <div className="no-print flex flex-wrap gap-2">
+        <div className="no-print flex flex-wrap items-center gap-2">
           <input
             type="text"
             placeholder="Buscar..."
@@ -272,6 +272,24 @@ export default function DemandasTable({
               <option key={v} value={v}>{l}</option>
             ))}
           </select>
+
+          {/* Limpar filtros */}
+          {(filtroStatus !== "ativas" || filtroArea || filtroOrigem || busca || dataInicio || dataFim) && (
+            <button
+              onClick={() => {
+                setFiltroStatus("ativas");
+                setFiltroArea("");
+                setFiltroOrigem("");
+                setBusca("");
+                setDataInicio("");
+                setDataFim("");
+              }}
+              className="rounded-md border px-3 py-1.5 text-xs font-medium transition-colors hover:bg-red-50"
+              style={{ borderColor: "#FECACA", color: "#B91C1C", background: "#FEF2F2" }}
+            >
+              ✕ Limpar filtros
+            </button>
+          )}
         </div>
 
         {/* ── Filtros — linha 2: período ────────────────── */}
