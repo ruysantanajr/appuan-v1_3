@@ -168,10 +168,29 @@ export default function DemandasTable({
 
   return (
     <>
-      {/* Print CSS */}
-      <style>{`@media print { .no-print { display: none !important; } }`}</style>
+      {/* Print CSS — complementar ao globals.css */}
+      <style>{`
+        .print-header { display: none; }
+        @media print {
+          .print-header {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3a1165;
+          }
+          .print-header h1 { font-size: 14pt; font-weight: 700; color: #1F1230; }
+          .print-header span { font-size: 8pt; color: #7A6B8E; }
+        }
+      `}</style>
 
       <div className="flex flex-col gap-4">
+        {/* Cabeçalho visível só na impressão */}
+        <div className="print-header">
+          <h1>Demandas</h1>
+          <span suppressHydrationWarning>Gerado em {new Date().toLocaleString("pt-BR")}</span>
+        </div>
 
         {/* ── Toolbar ──────────────────────────────────────── */}
         <div className="no-print flex flex-wrap items-center justify-between gap-2">

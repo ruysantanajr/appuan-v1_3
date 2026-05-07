@@ -93,3 +93,76 @@
     border-radius: 6px;
   }
 }
+
+/* ── Print / PDF ─────────────────────────────────────────────── */
+@media print {
+  /* Esconde sidebar, header e elementos marcados como no-print */
+  aside,
+  header,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reset do layout flex para impressão */
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* O wrapper flex vira block para ocupar a página toda */
+  body > div,
+  .flex.h-screen {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  main {
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  /* Padding da página de impressão */
+  .px-6.py-8 {
+    padding: 0 !important;
+  }
+
+  /* Tabela ocupa toda a largura e usa layout automático de colunas */
+  table {
+    table-layout: auto !important;
+    width: 100% !important;
+    font-size: 9pt !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    padding: 4px 8px !important;
+    border: 1px solid #ddd !important;
+    width: auto !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  /* Remove efeitos de hover / zebra (usa borda para diferenciar linhas) */
+  tr {
+    background: #fff !important;
+    break-inside: avoid;
+  }
+
+  tr:nth-child(even) td {
+    background: #f9f6ff !important;
+  }
+
+  /* Garante que a borda externa da tabela apareça */
+  .overflow-hidden.rounded-lg.border {
+    border: 1px solid #ccc !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  /* Configuração de página — paisagem para caber todas as colunas */
+  @page {
+    size: A4 landscape;
+    margin: 12mm 15mm;
+  }
+}
