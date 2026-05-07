@@ -13,7 +13,7 @@ interface única, sem que o usuário precise migrar de ferramenta.
 ## Stack
 
 - Frontend: Next.js 14 + TypeScript + Tailwind CSS + shadcn/ui
-- Banco: Supabase (PostgreSQL) — projeto oarbhewlhnobcfexxhyb
+- Banco: Supabase (PostgreSQL) — projeto kytfvznsdjgolquwfyun
 - Deploy: Cloudflare Pages
 - Domínio: appuan.app
 - Repositório: github.com/ruysantanajr/appuan-v1_3
@@ -109,6 +109,12 @@ interface única, sem que o usuário precise migrar de ferramenta.
 - Qualificação de equipamento: conduz o técnico teste a teste, gera relatório automático
 - Relatório de reembolso: vinculado à requisição do chamado, gerado automaticamente
 - Outros a identificar conforme uso real
+
+## Fluxo de trabalho obrigatório
+
+- Sempre iniciar qualquer sessão de trabalho com `git pull` para garantir que o código local está atualizado
+- Sempre finalizar com `git commit` (mensagem descritiva em português ou inglês) seguido de `git push`
+- Nunca deixar trabalho sem commitar ao encerrar uma sessão
 
 ## Nunca fazer
 
