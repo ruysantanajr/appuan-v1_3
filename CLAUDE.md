@@ -110,6 +110,12 @@ interface única, sem que o usuário precise migrar de ferramenta.
 - Relatório de reembolso: vinculado à requisição do chamado, gerado automaticamente
 - Outros a identificar conforme uso real
 
+## Fluxo de trabalho obrigatório
+
+- Sempre iniciar qualquer sessão de trabalho com `git pull` para garantir que o código local está atualizado
+- Sempre finalizar com `git commit` (mensagem descritiva em português ou inglês) seguido de `git push`
+- Nunca deixar trabalho sem commitar ao encerrar uma sessão
+
 ## Nunca fazer
 
 - Nunca deletar ou atualizar registros da trilha_auditoria
