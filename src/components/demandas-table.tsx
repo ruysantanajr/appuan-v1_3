@@ -34,8 +34,9 @@ const STATUS_STYLE: Record<string, { bg: string; color: string }> = {
 };
 
 function fmt(iso: string) {
-  return new Date(iso).toLocaleDateString("pt-BR", {
+  return new Date(iso).toLocaleString("pt-BR", {
     day: "2-digit", month: "2-digit", year: "numeric",
+    hour: "2-digit", minute: "2-digit",
   });
 }
 
@@ -123,8 +124,8 @@ export default function DemandasTable({
         <table className="w-full table-fixed text-sm">
           <thead>
             <tr style={{ background: "#F5F0FA" }}>
-              <th className="w-28 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
-                Data
+              <th className="w-40 px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
+                Data de Registro
               </th>
               <th className="px-4 py-2.5 text-left text-xs font-semibold text-fg-3">
                 Descrição
